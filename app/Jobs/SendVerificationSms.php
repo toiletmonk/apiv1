@@ -1,0 +1,33 @@
+<?php
+
+namespace App\Jobs;
+
+use App\Services\TwilioService;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Foundation\Queue\Queueable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
+
+class SendVerificationSms implements ShouldQueue
+{
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+
+    protected $phone;
+
+    protected $code;
+
+    public function __construct($phone, $code)
+    {
+        $this->phone = $phone;
+        $this->code = $code;
+    }
+
+    /**
+     * Execute the job.
+     */
+    public function handle(TwilioService $twilio): void
+    {
+        $twilio->sendMessage($this->phone, "Your verification code is: {$this->code}");
+    }
+}
