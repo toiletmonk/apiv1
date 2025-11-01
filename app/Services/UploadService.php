@@ -33,7 +33,7 @@ class UploadService
 
     public function detectType(string $extension)
     {
-        $documentExtensions = ['doc', 'docx', 'pdf', 'xls', 'xlsx', 'ppt', 'pptx'];
+        $documentExtensions = ['doc', 'docx', 'pdf', 'xls', 'xlsx', 'ppt', 'pptx', 'img', 'jpg', 'jpeg', 'png'];
 
         if (in_array($extension, $documentExtensions)) {
             return 'document';
